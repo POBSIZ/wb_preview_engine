@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="http://localhost:3000/static/styles/style.css" />
+  <title>step1</title>
+</head>
+
+<body>
+  <div class="container">
+    <div class="flex arrow-btn">
+      <a href="/A?type=a4" class="">이전</a>
+      <a href="/" class="">홈</a>
+    </div>
+    <% data.forEach((item, i)=>{ %>
+    <div class="rectangle">
+      <div class="cont-title">
+        <span class="kr-text">1Q</span>
+        <button type="button" id="refresh">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z" />
+            <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466" />
+          </svg>
+        </button>
+      </div>
+      <div class="cont-body">
+        <button class="" id="playBtn">
+          <img id="playImage" src="http://localhost:3000/static/images/voice.png" alt="" />
+          <audio id="myAudio" src="https://ccrma.stanford.edu/~jos/mp3/harpsi-cs.mp3" controls preload></audio>
+        </button>
+      </div>
+      <div class="cont-footer">
+        <div class="input-wrap">
+          <input type="text" id="inputField" />
+        </div>
+        <div class="text-wrap">
+          <% item.slice(3).forEach((opt, k)=>{ %>
+          <div class="en-text split-cont"><%= opt %></div>
+          <% }) %>
+        </div>
+      </div>
+    </div>
+    <% }) %>
+  </div>
+</body>
+<script>
+  // 이미지와 오디오 요소를 변수에 할당
+  var playImg = document.getElementById("playImage");
+  var myAudio = document.getElementById("myAudio");
+  const sentence = "I see an iguana";
+  const words = sentence.split(" ");
+  // 이미지 클릭 이벤트 리스너 추가
+  playImg.addEventListener("click", function(e) {
+    e.preventDefault();
+    myAudio.play();
+  });
+
+  function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]]; // ES6의 구조 분해 할당을 사용하여 값 교체
+    }
+  }
+
+  // // 단어 배열을 랜덤하게 섞음
+  // shuffleArray(words);
+  // // 'container' div를 선택
+  // const container = document.querySelector(".text-wrap");
+  // console.log(container);
+  // // 각 단어에 대해 반복
+  // words.forEach((word) => {
+  //   // 새 div 생성
+  //   const wordDiv = document.createElement("div");
+  //   // 클래스 추가
+  //   wordDiv.className = "en-text split-cont";
+  //   // 텍스트 추가
+  //   wordDiv.textContent = word;
+  //   // 생성된 div를 container에 추가
+  //   container.appendChild(wordDiv);
+  // });
+
+  const textWraps = document.querySelectorAll(".en-text");
+  const inputField = document.getElementById("inputField");
+  textWraps.forEach((textWrap) => {
+    textWrap.addEventListener("click", function() {
+      inputField.value += this.textContent + " ";
+    });
+  });
+  const refresh = document.getElementById("refresh");
+  refresh.addEventListener("click", function() {
+    inputField.value = "";
+  });
+</script>
+
+</html>

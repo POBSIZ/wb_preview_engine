@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="http://localhost:3000/static/styles/style.css" />
+  <title>step1</title>
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="flex arrow-btn">
+      <a href="/A?type=a1" class="">이전</a>
+      <a href="/" class="">홈</a>
+      <a href="/A?type=a3" class="">다음</a>
+    </div>
+    <% data.forEach((item, i)=>{ %>
+    <div class="rectangle">
+      <div class="cont-title">
+      </div>
+      <div class="cont-body">
+        <div class="img-wrap">
+          <img src="http://localhost:3000/static/books/<%=bookName%>/A/img/<%=item[1]%>" alt="달리는 소녀" />
+        </div>
+      </div>
+      <div class="cont-footer">
+        <ul class="select-list">
+          <% item.slice(4).forEach((opt, k)=>{ %>
+          <li class=<%= (item[2]-1) == k ? "active": "null" %> data-number="<%= k+1 %>"><%= opt %></li>
+          <% }) %>
+        </ul>
+      </div>
+    </div>
+    <% }) %>
+    <div class="flex arrow-btn">
+      <a href="/A?type=a1" class="">이전</a>
+      <a href="/" class="">홈</a>
+      <a href="/A?type=a3" class="">다음</a>
+    </div>
+  </div>
+</body>
+<script>
+  // 이미지와 오디오 요소를 변수에 할당
+  var playImg = document.getElementById("playImage");
+  var myAudio = document.getElementById("myAudio");
+
+  // 이미지 클릭 이벤트 리스너 추가
+  playImg.addEventListener("click", function(e) {
+    e.preventDefault();
+    myAudio.play();
+  });
+</script>
+
+</html>
